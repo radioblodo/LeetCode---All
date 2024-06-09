@@ -1,0 +1,16 @@
+from collections import Counter
+class Solution:
+    def longestPalindrome(self, s: str) -> int:
+            counts = Counter(s)
+            ans = 0 
+            hasOdd = False
+            for count in counts.values():
+                if count%2 == 0:
+                    ans += count
+                else:
+                    ans += count - 1
+                    hasOdd = True
+            if hasOdd == True:
+                ans += 1
+            return ans 
+            
