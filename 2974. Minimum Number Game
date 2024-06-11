@@ -1,0 +1,21 @@
+class Solution:
+    def secondSmallestFinder(self, nums: List[int]) -> int: 
+        minimum = min(nums)
+        secondSmallest = max(nums)
+        for i in range(len(nums)):
+            if nums[i] <= secondSmallest and i != nums.index(minimum):
+                secondSmallest = nums[i]
+        
+        return secondSmallest 
+
+    def numberGame(self, nums: List[int]) -> List[int]:
+        arr = []
+        while (len(nums) > 0):
+            secondSmallest = self.secondSmallestFinder(nums)
+            smallest = min(nums)
+            arr.append(secondSmallest)
+            arr.append(smallest)
+            nums.remove(smallest)
+            nums.remove(secondSmallest)
+        
+        return arr
