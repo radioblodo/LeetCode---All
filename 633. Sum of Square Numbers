@@ -1,0 +1,33 @@
+class Solution:
+    def primeFactorisation(self, c: int) -> Dict [int , int]:
+        primeFactors = {}
+
+        while c % 2 == 0:
+            if 2 in primeFactors:
+                primeFactors[2] += 1
+            else:
+                primeFactors[2] = 1
+            c //= 2
+        
+        for i in range(3, int(sqrt(c)+1), 2):
+            while c % i == 0:
+                if i in primeFactors:
+                    primeFactors[i] += 1
+                else:
+                    primeFactors[i] = 1
+                c //= i
+        if c > 1:
+            primeFactors[c] = 1
+        return primeFactors
+
+    def judgeSquareSum(self, c: int) -> bool:
+        if c == 0:
+            return True
+            
+        primeFactors = self.primeFactorisation(c)
+
+        for factor in primeFactors.keys():
+            if (factor-3)%4 == 0 and primeFactors[factor]%2 != 0:
+                return False
+        
+        return True
