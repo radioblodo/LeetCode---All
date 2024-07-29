@@ -1,0 +1,25 @@
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        #Set the left (l) to be at position 0 
+        l = 0 
+        #Set the right (r) to be at last position len(height) - 1
+        r = len(height) - 1
+        #Use a while loop to find the largest area
+        maxArea = 0 
+        while l != r:
+            area = min(height[l], height[r]) * (r-l)
+            maxArea = max(area, maxArea)
+
+            if height[l] < height[r]:
+                l += 1
+            else:
+                r -= 1
+
+        #Return the maxArea 
+        return maxArea
+Explanation: 
+1. First, set the left bar to be at position 0 and the right bar to be at position len(height) - 1
+2. Create a maxArea variable and initialise it to 0 
+3. While l and r are not equal, find the area and update the maxArea if necessary and if left bar is higher than right bar, move the right bar to the left, else, move the left bar to the right
+4. Return the maxArea 
+Time Complexity: O(n)
