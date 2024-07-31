@@ -1,0 +1,43 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def noNode(self, lists: List[Optional[ListNode]]) -> bool:
+        for array in lists:
+            if array != None:
+                return False 
+        
+        return True 
+
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        if self.noNode(lists):
+            return None
+        numbers = []
+        traverser = ListNode()
+        for array in lists:
+            traverser = array
+            while traverser != None:
+                numbers.append(traverser.val)
+                traverser = traverser.next 
+        
+        numbers.sort()
+        allNodes = []
+        for number in numbers:
+            newNode = ListNode()
+            newNode.val = number 
+            allNodes.append(newNode)
+        for i in range(len(allNodes)-1):
+            allNodes[i].next = allNodes[i+1]
+        
+        return allNodes[0]
+
+Explanation:
+1. Write a helper function to check if there is anything in the lists, if there is no ListNode, return True, else return False
+2. Call the helper function and return None if there is indeed no ListNode 
+3. Create a List, 'numbers' to store all the values of the ListNodes 
+4. Arrange the 'numbers' List in ascending order by calling the sort() function 
+5. Create new ListNode() for each number in 'numbers' 
+6. Link up the ListNodes in the allNodes List 
+7. Return the head of the linked up list by return allNodes[0]
