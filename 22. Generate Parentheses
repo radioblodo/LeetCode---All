@@ -1,0 +1,25 @@
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        result = []
+        def backtrack(openCount, closedCount, validString):
+            if openCount == closedCount == n:
+                result.append(validString)
+                return
+            
+            if n > openCount:
+                backtrack(openCount+1, closedCount, validString+'(')
+
+            if openCount > closedCount:
+                backtrack(openCount, closedCount+1, validString+')')
+            
+        backtrack(0,0,"")
+            
+        return result
+            
+Explanation: 
+1. Create a global variable, 'result' to store all the valid combinations 
+2. Create a recursive function, 'backtrack'
+3. If the count of opening parentheses is equal to the count of closing parentheses, which is also equal to n, add the valid combination to the 'result' List and terminate the function by returning
+4. If openCount is below n, you can continue to add opening parentheses
+5. If closedCount is below openCount, you can continue to add closing parentheses
+6. return the 'result' List 
