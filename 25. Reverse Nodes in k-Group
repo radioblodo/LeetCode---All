@@ -1,0 +1,40 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseMachine(self, nodeList: list) -> list:
+        return list(reversed(nodeList))
+
+    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        allNodes = []
+        result = []
+        traverser = head 
+
+        while traverser:
+            allNodes.append(traverser)
+            traverser = traverser.next
+
+        for i in range(len(allNodes)-1):
+            allNodes[i].next = None
+
+        for i in range(0, len(allNodes), k):
+            if i + k <= len(allNodes):
+                result += self.reverseMachine(allNodes[i:i+k])
+            else:
+                result += allNodes[i:]  # append remaining nodes as they are if less than k
+        
+        for i in range(len(result)-1):
+            result[i].next = result[i+1]
+        result[-1].next = None
+        return result[0] if result else None
+
+Explanation: 
+1. Write a helper function to reverse a list of nodes and return it 
+2. Add all the nodes into a allNodes list 
+3. Cut off all the links between the nodes 
+4. If i + k is below the len(allNodes), send it to be reversed by the reverseMachine and append it to result 
+5. If not, append the remaining part of the allNodes to result 
+6. Link up the nodes in the result 
+7. Return the first node in the result list 
