@@ -1,0 +1,30 @@
+class Solution:
+    def divide(self, dividend: int, divisor: int) -> int:
+        numberOfNegatives = 0 
+
+        if dividend < 0 and divisor < 0:
+            numberOfNegatives = 0 
+        elif dividend > 0 and divisor > 0:
+            numberOfNegatives = 0 
+        else:
+            numberOfNegatives = 1
+
+        INT_MAX = 2**31-1
+        INT_MIN = -2**31
+
+        if numberOfNegatives == 1:
+            if dividend < 0:
+                if -1*int((-1*dividend)//divisor) < INT_MIN:
+                    return INT_MIN
+                else:
+                    return -1*int((-1*dividend)//divisor)
+            else:
+                if -1*int(dividend//(-1*divisor)) < INT_MIN:
+                    return -1*int(dividend//(-1*divisor))
+                else:
+                    return -1*int(dividend//(-1*divisor))
+        
+        if int(dividend//divisor) > INT_MAX:
+            return INT_MAX
+            
+        return int(dividend//divisor)
