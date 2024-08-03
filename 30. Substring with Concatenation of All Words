@@ -1,0 +1,39 @@
+from collections import Counter
+from typing import List
+
+class Solution:
+    def findSubstring(self, s: str, words: List[str]) -> List[int]:
+        #Step 1: If s is None or words is None, return an empty List object 
+        if not s or not words:
+            return []
+
+        #Step 2: Find the length of a word in the words list 
+        word_len = len(words[0])
+
+        #Step 3: Find the length of the concatenated words in the words list 
+        total_len = word_len * len(words)
+
+        #Step 4: Create a Counter object to keep track of the number of occurences of the words
+        word_count = Counter(words)
+        
+        result = [] #The list to store the indexes of the permutations 
+        
+        for i in range(word_len):
+            left = i
+            right = i
+            current_count = Counter() #Create an empty Counter() object to keep track of the count of each word in the words 
+            while right + word_len <= len(s):
+                word = s[right:right + word_len]
+                right += word_len #In preparation for the next iteration 
+                if word in word_count:
+                    current_count[word] += 1 #If the substring(word) is indeed in the words list, add the count by 1 in the current_count Counter() object 
+                    while current_count[word] > word_count[word]: #If the count of a particular word exceeds the count of that word in word_count...
+                        current_count[s[left:left + word_len]] -= 1 #then keep reducing the count of that word in current_count object while...
+                        left += word_len #Shifting the left more to the right because that would mean that substring is not a valid permutation
+                    if right - left == total_len:
+                        result.append(left)
+                else:
+                    current_count.clear()
+                    left = right
+        
+        return result
