@@ -1,0 +1,34 @@
+class Solution:
+    def containsDuplicates(self, grid: List[str]) -> bool:
+        for string in grid:
+            if string != "." and grid.count(string) > 1:
+                return True 
+        
+        return False
+
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        #Check for each row 
+        for row in board:
+            if self.containsDuplicates(row):
+                return False 
+        
+        #Check for each column: 
+        current_col = []
+        for i in range(9):
+            for row in board:
+                current_col.append(row[i])
+            if self.containsDuplicates(current_col):
+                return False 
+            current_col.clear()
+        
+        rows = [0, 3, 6]
+        for row_index in rows:
+            for col_index in rows:
+                grid = []
+                for row in range(row_index, row_index + 3):
+                    for col in range(col_index, col_index + 3):
+                        grid.append(board[row][col])
+                if self.containsDuplicates(grid):
+                    return False
+        return True 
+
