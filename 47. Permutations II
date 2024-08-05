@@ -1,0 +1,14 @@
+import itertools
+
+class Solution:
+    def removeDuplicates(self, result: List[List[int]]) -> List[List[int]]:
+        tuples = map(tuple, result)
+
+        unique_tuples = set(tuples)
+
+        unique_lists = list(map(list, unique_tuples))
+
+        return unique_lists
+
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        return self.removeDuplicates(itertools.permutations(nums))
