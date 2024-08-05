@@ -1,0 +1,16 @@
+class Solution:
+    def multiply(self, num1: str, num2: str) -> str:
+        #Compute for num1
+        numOne = 0 
+        num1 = num1[::-1]
+        for i in range(len(num1)):
+            numOne += 10**i * (ord(num1[i])-48)
+
+        #Compute for num2 
+        numTwo = 0 
+        num2 = num2[::-1]
+        for i in range(len(num2)):
+            numTwo += 10**i * (ord(num2[i])-48)
+
+
+        return str(numOne*numTwo)
