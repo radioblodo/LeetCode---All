@@ -1,0 +1,28 @@
+import math 
+
+class Solution:
+    def numEquivDominoPairs(self, dominoes: List[List[int]]) -> int:
+        # Perform in-place sorting for all the inner lists
+        for inner_list in dominoes:
+            inner_list.sort()
+        
+        # A list to track what have been seen 
+        seen = []
+        counts = []
+
+        for pair in dominoes:
+            if pair not in seen:
+                seen.append(pair)
+                if dominoes.count(pair) >= 2:
+                    counts.append(dominoes.count(pair))
+            
+        # Calculate the combinations of choosing pairs 
+        res = 0 
+        for count in counts:
+            res += int(count * (count-1) / 2)
+        
+        return res 
+
+        
+        
+       
