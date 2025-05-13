@@ -1,0 +1,23 @@
+class Solution {
+    fun lengthAfterTransformations(s: String, t: Int): Int {
+        val MOD = 1_000_000_007
+        val counts = LongArray(26)
+        for (c in s) counts[c - 'a'] += 1L
+        
+        var length = s.length.toLong()
+        
+        repeat(t) {
+            val zCount = counts[25]
+            length = (length + zCount) % MOD
+            // Shift counts: 'a' becomes 'b', ..., 'y' becomes 'z'
+            for (i in 25 downTo 1) {
+                counts[i] = counts[i - 1]
+            }
+            // 'z' turns into "ab", so add its count to both 'a' and 'b'
+            counts[0] = zCount
+            counts[1] = (counts[1] + zCount) % MOD
+        }
+
+        return length.toInt()
+    }
+}
